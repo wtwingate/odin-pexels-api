@@ -1,13 +1,10 @@
 class PagesController < ApplicationController
   def home
-    client = Pexels::Client.new
+    client = Pexels::Client.new(ENV.fetch("PEXELS_API_KEY"))
 
     if params[:query].present?
       @query = params[:query]
-      @results = client.photos.search(@query)
-      @photo_urls = @results.photos.map do |photo|
-        photo.src["medium"]
-      end
+      @photos = client.photos.search(@query).photos
     end
   end
 end

@@ -1,16 +1,16 @@
-<h1>Hello, World!</h1>
+<h1>Photos</h1>
 
 <%= form_with url: :root, method: :get do |form| %>
-  <%= form.label :query, "Search for photos:" %>
+  <%= form.label :query, "Search for photos:", style: "display: block" %>
   <%= form.search_field :query %>
   <%= form.submit "Search" %>
 <% end %>
 
 <% if @query %>
   <h2>Search Results for "<%= @query %>"</h2>
-  <% if @photo_urls.any? %>
-    <% @photo_urls.each do |url| %>
-      <%= image_tag(url) %>
+  <% if @photos.any? %>
+    <% @photos.each do |photo| %>
+      <%= link_to image_tag(photo.src["large"]), photo.url %>
     <% end %>
   <% else %>
     <p>No results found...</p>
